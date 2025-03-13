@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ES6",
+    "lib": ["ES6"],
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*", "test/**/*"],
+}
