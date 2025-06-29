@@ -6,7 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "target": "ES6",
-    "lib": ["ES6"],
+    "lib": ["ES6", "es2017.string"],
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true

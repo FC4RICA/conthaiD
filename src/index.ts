@@ -1,54 +1,26 @@
-import dayjs from "dayjs";
-
-const thaiFullMonths = [
-  "มกราคม", // January
-  "กุมภาพันธ์", // February
-  "มีนาคม", // March
-  "เมษายน", // April
-  "พฤษภาคม", // May
-  "มิถุนายน", // June
-  "กรกฎาคม", // July
-  "สิงหาคม", // August
-  "กันยายน", // September
-  "ตุลาคม", // October
-  "พฤศจิกายน", // November
-  "ธันวาคม", // December
-];
-
-const thaiShortMonths = [
-  "ม.ค.", // January
-  "ก.พ.", // February
-  "มี.ค.", // March
-  "เม.ย.", // April
-  "พ.ค.", // May
-  "มิ.ย.", // June
-  "ก.ค.", // July
-  "ส.ค.", // August
-  "ก.ย.", // September
-  "ต.ค.", // October
-  "พ.ย.", // November
-  "ธ.ค.", // December
-];
-
-export const thaiLocale = (foramt: string, date: Date | null) => {
+export const formatThaiDate = (format: string, date: Date | null) : string | false => {
   try {
     if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
       return false;
     }
-    let dayjsDate = dayjs(date);
-    let month = dayjsDate.month();
-    let year = dayjsDate.year();
-    let day = dayjsDate.date();
 
-    if (foramt === "full") {
-      return `${day} ${thaiFullMonths[month]} ${year}`;
-    } else if (foramt === "short") {
-      return `${day} ${thaiShortMonths[month]} ${year}`;
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    if (format === "full") {
+      const monthName = new Intl.DateTimeFormat("th-TH", { month: "long" }).format(date);
+      return `${day} ${monthName} ${year}`;
+    } else if (format === "short") {
+      const shortMonth = new Intl.DateTimeFormat("th-TH", { month: "short" }).format(date);
+      return `${day} ${shortMonth} ${year}`;
     } else {
-      return dayjsDate.format(foramt);
+      return format
+        .replace(/dd/, String(day).padStart(2, "0"))
+        .replace(/MM/, new Intl.DateTimeFormat("th-TH", { month: "short" }).format(date))
+        .replace(/yyyy/, String(year));
     }
-  } catch (error) {
+  } catch {
     return false;
   }
-};
-
+}
